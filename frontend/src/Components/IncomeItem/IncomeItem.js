@@ -62,7 +62,7 @@ function IncomeItem({
         }
     }
 
-    console.log('type', type)
+    // console.log('type', type)
 
     return (
         <IncomeItemStyled indicator={indicatorColor}>
@@ -109,61 +109,148 @@ const IncomeItemStyled = styled.div`
     align-items: center;
     gap: 1rem;
     width: 100%;
+    max-width: 500px;
     color: #222260;
-    .icon{
-        width: 80px;
-        height: 80px;
+
+    .icon {
+        width: clamp(50px, 8vw, 80px);
+        height: clamp(50px, 8vw, 80px);
         border-radius: 20px;
         background: #F5F5F5;
         display: flex;
         align-items: center;
         justify-content: center;
         border: 2px solid #FFFFFF;
-        i{
-            font-size: 2.6rem;
+        
+        i {
+            font-size: clamp(1.8rem, 3vw, 2.6rem);
         }
     }
 
-    .content{
+    .content {
         flex: 1;
         display: flex;
         flex-direction: column;
-        gap: .2rem;
-        h5{
-            font-size: 1.3rem;
+        gap: 0.2rem;
+
+        h5 {
+            font-size: clamp(1rem, 1.5vw, 1.3rem);
             padding-left: 2rem;
             position: relative;
-            &::before{
+            
+            &::before {
                 content: '';
                 position: absolute;
                 left: 0;
                 top: 50%;
                 transform: translateY(-50%);
-                width: .8rem;
-                height: .8rem;
+                width: 0.8rem;
+                height: 0.8rem;
                 border-radius: 50%;
-                background: ${props => props.indicator};
+                background: ${(props) => props.indicator};
             }
         }
 
-        .inner-content{
+        .inner-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            .text{
+            gap: 1rem;
+            flex-wrap: nowrap;
+            width: 100%;
+            
+            .text {
                 display: flex;
                 align-items: center;
-                gap: 1.5rem;
-                p{
-                    display: flex;
-                    align-items: center;
-                    gap: 0.5rem;
-                    color: var(--primary-color);
-                    opacity: 0.8;
+                gap: 1rem;
+                flex-wrap: wrap;
+            }
+
+            .delete-btn {
+                flex-shrink: 0;
+                width: 40px;
+                height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: var(--primary-color);
+                border-radius: 50%;
+                cursor: pointer;
+                
+                &:hover {
+                    background: var(--color-delete);
+                }
+            }
+        }
+    }
+
+    @media (max-width: 1200px) {
+        max-width: 450px;
+    }
+
+    @media (max-width: 1024px) {
+        max-width: 400px;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem;
+        
+        .inner-content {
+            width: 100%;
+            flex-direction: column;
+        }
+
+        .text {
+            width: 100%;
+            display: flex;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+    }
+
+    @media (max-width: 768px) {
+        max-width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem;
+
+        .inner-content {
+            width: 100%;
+            flex-direction: column;
+        }
+
+        .text {
+            width: 100%;
+            display: flex;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+    }
+
+    @media (max-width: 480px) {
+        max-width: 100%;
+        padding: 1rem;
+        
+        .icon {
+            width: 60px;
+            height: 60px;
+        }
+
+        .content {
+            h5 {
+                font-size: 1rem;
+            }
+
+            .inner-content {
+                .text {
+                    font-size: 0.9rem;
                 }
             }
         }
     }
 `;
+
+
+
+
 
 export default IncomeItem

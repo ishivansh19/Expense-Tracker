@@ -72,7 +72,7 @@ function Form() {
                     <option value=""  disabled >Select Option</option>
                     <option value="salary">Salary</option>
                     <option value="freelancing">Freelancing</option>
-                    <option value="investments">Investiments</option>
+                    <option value="investments">Investments</option>
                     <option value="stocks">Stocks</option>
                     <option value="bitcoin">Bitcoin</option>
                     <option value="bank">Bank Transfer</option>  
@@ -101,47 +101,62 @@ function Form() {
 const FormStyled = styled.form`
     display: flex;
     flex-direction: column;
-    gap: 2rem;
-    input, textarea, select{
+    gap: clamp(1rem, 2vw, 2rem);
+
+    input, textarea, select {
         font-family: inherit;
-        font-size: inherit;
+        font-size: clamp(0.9rem, 1.2vw, 1rem);
         outline: none;
         border: none;
-        padding: .5rem 1rem;
+        padding: 0.5rem 1rem;
         border-radius: 5px;
         border: 2px solid #fff;
         background: transparent;
         resize: none;
         box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.06);
         color: rgba(34, 34, 96, 0.9);
-        &::placeholder{
+        width: 100%;
+
+        &::placeholder {
             color: rgba(34, 34, 96, 0.4);
-        }
-    }
-    .input-control{
-        input{
-            width: 100%;
         }
     }
 
-    .selects{
+    .input-control {
+        width: 100%;
+    }
+
+    .selects {
         display: flex;
         justify-content: flex-end;
-        select{
+
+        select {
             color: rgba(34, 34, 96, 0.4);
-            &:focus, &:active{
+            &:focus, &:active {
                 color: rgba(34, 34, 96, 1);
             }
         }
+
+        @media (max-width: 768px) {
+            justify-content: center;
+        }
     }
 
-    .submit-btn{
-        button{
+    .submit-btn {
+        display: flex;
+        justify-content: center;
+        
+        button {
+            max-width: 250px;
+            width: 100%;
             box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.06);
-            &:hover{
+            &:hover {
                 background: var(--color-green) !important;
             }
         }
     }
 `;
+
+
+
 export default Form

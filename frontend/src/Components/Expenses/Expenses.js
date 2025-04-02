@@ -2,12 +2,11 @@ import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { useGlobalContext } from '../../context/globalContext';
 import { InnerLayout } from '../../styles/Layouts';
-import Form from '../Form/Form';
 import IncomeItem from '../IncomeItem/IncomeItem';
 import ExpenseForm from './ExpenseForm';
 
 function Expenses() {
-    const {addIncome,expenses, getExpenses, deleteExpense, totalExpenses} = useGlobalContext()
+    const {addExpense,expenses, getExpenses, deleteExpense, totalExpenses} = useGlobalContext()
 
     useEffect(() =>{
         getExpenses()
@@ -16,15 +15,15 @@ function Expenses() {
         <ExpenseStyled>
             <InnerLayout>
                 <h1>Expenses</h1>
-                <h2 className="total-income">Total Expense: <span>${totalExpenses()}</span></h2>
-                <div className="income-content">
+                <h2 className="total-expense">Total Expense: <span>${totalExpenses()}</span></h2>
+                <div className="expense-content">
                     <div className="form-container">
                         <ExpenseForm />
                     </div>
-                    <div className="incomes">
-                        {expenses.map((income) => {
-                            const {_id, title, amount, date, category, description, type} = income;
-                            console.log(income)
+                    <div className="expenses">
+                        {expenses.map((expense) => {
+                            const {_id, title, amount, date, category, description, type} = expense;
+                            console.log(expense)
                             return <IncomeItem
                                 key={_id}
                                 id={_id} 
@@ -32,9 +31,9 @@ function Expenses() {
                                 description={description} 
                                 amount={amount} 
                                 date={date} 
-                                type={type}
+                                type={'expense'}
                                 category={category} 
-                                indicatorColor="var(--color-green)"
+                                indicatorColor="red"
                                 deleteItem={deleteExpense}
                             />
                         })}
@@ -48,7 +47,9 @@ function Expenses() {
 const ExpenseStyled = styled.div`
     display: flex;
     overflow: auto;
-    .total-income{
+    flex-direction: column; /* Stack elements vertically by default */
+    
+    .total-expense{
         display: flex;
         justify-content: center;
         align-items: center;
@@ -58,21 +59,63 @@ const ExpenseStyled = styled.div`
         border-radius: 20px;
         padding: 1rem;
         margin: 1rem 0;
-        font-size: 2rem;
-        gap: .5rem;
+        font-size: clamp(1.5rem, 2vw, 2rem);
+        gap: 0.5rem;
+        
         span{
             font-size: 2.5rem;
             font-weight: 800;
             color: var(--color-green);
         }
     }
-    .income-content{
+
+    .expense-content{
         display: flex;
         gap: 2rem;
         .incomes{
             flex: 1;
         }
     }
+
+    /* Mobile and Tablet adjustments */
+    @media (max-width: 768px) {
+        .total-expense{
+            flex-direction: column;
+            text-align: center; /* Center text for smaller screens */
+            padding: 1.5rem; /* Add more padding for better readability */
+        }
+
+        .expense-content{
+            flex-direction: column; /* Stack content vertically on smaller screens */
+            gap: 1.5rem;
+        }
+
+        .expenses{
+            width: 100%; /* Allow income section to take full width on small screens */
+        }
+    }
+
+    /* Smaller screens (mobile) */
+    @media (max-width: 480px) {
+        .total-expense{
+            font-size: 1.8rem; /* Reduce font size */
+            span{
+                font-size: 2rem; /* Make the span text smaller for mobile */
+            }
+        }
+
+        .expense-content{
+            gap: 1rem; /* Decrease gap between sections */
+        }
+    }
+
+    /* Larger screens (desktop) */
+    @media (min-width: 1024px) {
+        .total-expense{
+            font-size: 2.2rem; /* Slightly larger font size on larger screens */
+        }
+    }
 `;
+
 
 export default Expenses

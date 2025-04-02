@@ -1,147 +1,87 @@
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
-import DatePicker from 'react-datepicker'
-import "react-datepicker/dist/react-datepicker.css";
 import { useGlobalContext } from '../../context/globalContext';
-import Button from '../Button/Button';
-import { plus } from '../../utils/Icons';
+import { InnerLayout } from '../../styles/Layouts';
+import Form from '../Form/Form';
+import IncomeItem from '../IncomeItem/IncomeItem';
 
+function Income() {
+    const {addIncome,incomes, getIncomes, deleteIncome, totalIncome} = useGlobalContext()
 
-function Form() {
-    const {addIncome, getIncomes, error, setError} = useGlobalContext()
-    const [inputState, setInputState] = useState({
-        title: '',
-        amount: '',
-        date: '',
-        category: '',
-        description: '',
-    })
-
-    const { title, amount, date, category,description } = inputState;
-
-    const handleInput = name => e => {
-        setInputState({...inputState, [name]: e.target.value})
-        setError('')
-    }
-
-    const handleSubmit = e => {
-        e.preventDefault()
-        addIncome(inputState)
-        setInputState({
-            title: '',
-            amount: '',
-            date: '',
-            category: '',
-            description: '',
-        })
-    }
-
+    useEffect(() =>{
+        getIncomes()
+    }, [])
     return (
-        <FormStyled onSubmit={handleSubmit}>
-            {error && <p className='error'>{error}</p>}
-            <div className="input-control">
-                <input 
-                    type="text" 
-                    value={title}
-                    name={'title'} 
-                    placeholder="Salary Title"
-                    onChange={handleInput('title')}
-                />
-            </div>
-            <div className="input-control">
-                <input value={amount}  
-                    type="text" 
-                    name={'amount'} 
-                    placeholder={'Salary Amount'}
-                    onChange={handleInput('amount')} 
-                />
-            </div>
-            <div className="input-control">
-                <DatePicker 
-                    id='date'
-                    placeholderText='Enter A Date'
-                    selected={date}
-                    dateFormat="dd/MM/yyyy"
-                    onChange={(date) => {
-                        setInputState({...inputState, date: date})
-                    }}
-                />
-            </div>
-            <div className="selects input-control">
-                <select required value={category} name="category" id="category" onChange={handleInput('category')}>
-                    <option value=""  disabled >Select Option</option>
-                    <option value="salary">Salary</option>
-                    <option value="freelancing">Freelancing</option>
-                    <option value="investments">Investiments</option>
-                    <option value="stocks">Stocks</option>
-                    <option value="bitcoin">Bitcoin</option>
-                    <option value="bank">Bank Transfer</option>  
-                    <option value="youtube">Youtube</option>  
-                    <option value="other">Other</option>  
-                </select>
-            </div>
-            <div className="input-control">
-                <textarea name="description" value={description} placeholder='Add A Reference' id="description" cols="30" rows="4" onChange={handleInput('description')}></textarea>
-            </div>
-            <div className="submit-btn">
-                <Button 
-                    name={'Add Income'}
-                    icon={plus}
-                    bPad={'.8rem 1.6rem'}
-                    bRad={'30px'}
-                    bg={'var(--color-accent'}
-                    color={'#fff'}
-                />
-            </div>
-        </FormStyled>
+        <IncomeStyled>
+            <InnerLayout>
+                <h1>Incomes</h1>
+                <h2 className="total-income">Total Income: <span>${totalIncome()}</span></h2>
+                <div className="income-content">
+                    <div className="form-container">
+                        <Form />
+                    </div>
+                    <div className="incomes">
+                        {incomes.map((income) => {
+                            const {_id, title, amount, date, category, description, type} = income;
+                            return <IncomeItem
+                                key={_id}
+                                id={_id} 
+                                title={title} 
+                                description={description} 
+                                amount={amount} 
+                                date={date} 
+                                type={type}
+                                category={category} 
+                                indicatorColor="var(--color-green)"
+                                deleteItem={deleteIncome}
+                            />
+                        })}
+                    </div>
+                </div>
+            </InnerLayout>
+        </IncomeStyled>
     )
 }
 
-
-const FormStyled = styled.form`
+const IncomeStyled = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 2rem;
-    input, textarea, select{
-        font-family: inherit;
-        font-size: inherit;
-        outline: none;
-        border: none;
-        padding: .5rem 1rem;
-        border-radius: 5px;
-        border: 2px solid #fff;
-        background: transparent;
-        resize: none;
-        box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.06);
-        color: rgba(34, 34, 96, 0.9);
-        &::placeholder{
-            color: rgba(34, 34, 96, 0.4);
-        }
-    }
-    .input-control{
-        input{
-            width: 100%;
-        }
-    }
-
-    .selects{
+    overflow: auto;
+    
+    .total-income {
         display: flex;
-        justify-content: flex-end;
-        select{
-            color: rgba(34, 34, 96, 0.4);
-            &:focus, &:active{
-                color: rgba(34, 34, 96, 1);
-            }
+        justify-content: center;
+        align-items: center;
+        background: #FCF6F9;
+        border: 2px solid #FFFFFF;
+        box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.06);
+        border-radius: 20px;
+        padding: 1rem;
+        margin: 1rem 0;
+        font-size: clamp(1.5rem, 2vw, 2rem);
+        gap: 0.5rem;
+
+        span {
+            font-size: clamp(2rem, 3vw, 2.5rem);
+            font-weight: 800;
+            color: var(--color-green);
         }
     }
 
-    .submit-btn{
-        button{
-            box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.06);
-            &:hover{
-                background: var(--color-green) !important;
-            }
+    .income-content {
+        display: flex;
+        gap: clamp(1rem, 2vw, 2rem);
+        
+        .incomes {
+            flex: 1;
+        }
+
+        @media (max-width: 768px) {
+            flex-direction: column;
+            gap: 1rem;
         }
     }
 `;
-export default Form
+
+
+export default Income

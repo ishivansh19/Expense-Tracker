@@ -15,6 +15,7 @@ function ExpenseForm() {
         date: '',
         category: '',
         description: '',
+        type: 'expense'
     })
 
     const { title, amount, date, category,description } = inputState;
@@ -33,6 +34,7 @@ function ExpenseForm() {
             date: '',
             category: '',
             description: '',
+            type: 'expense'
         })
     }
 
@@ -102,6 +104,7 @@ const ExpenseFormStyled = styled.form`
     display: flex;
     flex-direction: column;
     gap: 2rem;
+
     input, textarea, select{
         font-family: inherit;
         font-size: inherit;
@@ -118,6 +121,7 @@ const ExpenseFormStyled = styled.form`
             color: rgba(34, 34, 96, 0.4);
         }
     }
+
     .input-control{
         input{
             width: 100%;
@@ -143,5 +147,52 @@ const ExpenseFormStyled = styled.form`
             }
         }
     }
+
+    @media (max-width: 768px) {
+        .selects{
+            justify-content: center;
+        }
+
+        .submit-btn{
+            display: flex;
+            justify-content: center;
+        }
+    }
+
+    @media (max-width: 480px) {
+        gap: 1.5rem;
+        
+        input, textarea, select{
+            padding: .5rem;
+            font-size: 0.9rem;
+        }
+
+        .selects{
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .submit-btn{
+            button{
+                width: 100%;
+                padding: 1rem;
+            }
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .selects{
+            justify-content: flex-end;
+        }
+
+        .submit-btn{
+            button{
+                width: auto;
+            }
+        }
+    }
 `;
+
+
 export default ExpenseForm

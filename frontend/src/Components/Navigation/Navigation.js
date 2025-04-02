@@ -11,7 +11,7 @@ function Navigation({active, setActive}) {
             <div className="user-con">
                 <img src={avatar} alt="" />
                 <div className="text">
-                    <h2>Mike</h2>
+                    <h2>Shivansh</h2>
                     <p>Your Money</p>
                 </div>
             </div>
@@ -48,6 +48,7 @@ const NavStyled = styled.nav`
     flex-direction: column;
     justify-content: space-between;
     gap: 2rem;
+
     .user-con{
         height: 100px;
         display: flex;
@@ -110,6 +111,45 @@ const NavStyled = styled.nav`
             border-radius: 0 10px 10px 0;
         }
     }
+
+    @media (max-width: 768px) {
+        width: 100%;
+        padding: 1.5rem 1rem;
+        .user-con{
+            height: 80px;
+            gap: 1rem;
+            img{
+                width: 60px;
+                height: 60px;
+            }
+        }
+        .menu-items{
+            li{
+                grid-template-columns: 35px auto;
+                font-size: 1.4rem;
+            }
+        }
+    }
+
+    @media (max-width: 480px) {
+        width: 100%;
+        padding: 1rem;
+        .user-con{
+            height: 70px;
+            gap: 0.8rem;
+            img{
+                width: 50px;
+                height: 50px;
+            }
+        }
+        .menu-items{
+            li{
+                grid-template-columns: 30px auto;
+                font-size: 1.2rem;
+            }
+        }
+    }
 `;
+
 
 export default Navigation

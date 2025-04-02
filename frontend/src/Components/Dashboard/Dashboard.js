@@ -74,6 +74,7 @@ const DashboardStyled = styled.div`
         display: grid;
         grid-template-columns: repeat(5, 1fr);
         gap: 2rem;
+
         .chart-con{
             grid-column: 1 / 4;
             height: 400px;
@@ -82,18 +83,24 @@ const DashboardStyled = styled.div`
                 grid-template-columns: repeat(4, 1fr);
                 gap: 2rem;
                 margin-top: 2rem;
+
                 .income, .expense{
                     grid-column: span 2;
                 }
+
                 .income, .expense, .balance{
                     background: #FCF6F9;
                     border: 2px solid #FFFFFF;
                     box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.06);
                     border-radius: 20px;
                     padding: 1rem;
+
                     p{
-                        font-size: 3.5rem;
+                        font-size: 2rem; /* Reduced font size for balance */
                         font-weight: 700;
+                        word-wrap: break-word;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
                     }
                 }
 
@@ -106,7 +113,7 @@ const DashboardStyled = styled.div`
                     p{
                         color: var(--color-green);
                         opacity: 0.6;
-                        font-size: 4.5rem;
+                        font-size: 2.5rem; /* Adjusted font size for balance */
                     }
                 }
             }
@@ -120,12 +127,14 @@ const DashboardStyled = styled.div`
                 align-items: center;
                 justify-content: space-between;
             }
+
             .salary-title{
                 font-size: 1.2rem;
                 span{
                     font-size: 1.8rem;
                 }
             }
+
             .salary-item{
                 background: #FCF6F9;
                 border: 2px solid #FFFFFF;
@@ -135,6 +144,7 @@ const DashboardStyled = styled.div`
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
+
                 p{
                     font-weight: 600;
                     font-size: 1.6rem;
@@ -142,6 +152,83 @@ const DashboardStyled = styled.div`
             }
         }
     }
+
+    @media (max-width: 768px) {
+        .stats-con{
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+
+            .chart-con{
+                grid-column: 1;
+                height: 300px;
+            }
+
+            .amount-con{
+                grid-template-columns: 1fr 1fr;
+                margin-top: 1rem;
+                gap: 1rem;
+                
+                .income, .expense, .balance{
+                    grid-column: span 1;
+                }
+            }
+
+            .history-con{
+                grid-column: 1;
+            }
+        }
+    }
+
+    @media (max-width: 480px) {
+        .stats-con{
+            gap: 1rem;
+        }
+
+        .amount-con{
+            margin-top: 1rem;
+
+            .income, .expense{
+                p{
+                    font-size: 1.8rem;
+                }
+            }
+
+            .balance p{
+                font-size: 2rem; /* Adjusted font size for balance */
+            }
+        }
+
+        .history-con h2{
+            font-size: 1rem;
+        }
+
+        .salary-item p{
+            font-size: 1.4rem;
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .stats-con{
+            grid-template-columns: repeat(5, 1fr);
+        }
+
+        .chart-con{
+            height: 400px;
+        }
+
+        .amount-con{
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .income, .expense, .balance{
+            p{
+                font-size: 2rem; /* Reduced font size for balance */
+            }
+        }
+    }
 `;
+
+
 
 export default Dashboard

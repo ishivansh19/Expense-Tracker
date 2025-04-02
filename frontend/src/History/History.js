@@ -38,6 +38,7 @@ const HistoryStyled = styled.div`
     display: flex;
     flex-direction: column;
     gap: 1rem;
+
     .history-item{
         background: #FCF6F9;
         border: 2px solid #FFFFFF;
@@ -47,6 +48,18 @@ const HistoryStyled = styled.div`
         display: flex;
         justify-content: space-between;
         align-items: center;
+    }
+
+    @media (max-width: 768px) {
+        .history-item{
+            padding: 0.8rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .history-item{
+            padding: 0.6rem;
+        }
     }
 `;
 

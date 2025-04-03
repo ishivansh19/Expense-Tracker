@@ -6,9 +6,10 @@ exports.addExpense= async (req,res)=>{
     const expense=expenseSchema({
         title,
         amount,
+        type:'expense',
         category,
         description,
-        date
+        date,
     })
     try{
         //validations
@@ -18,6 +19,7 @@ exports.addExpense= async (req,res)=>{
         if(amount<=0||!amount ==='number'){
             return res.status(400).json({message:'Amount must be a positive number'})
         }
+        // console.log(expense)
         await expense.save()
         res.status(201).json({message:'Expense added successfully'})
     }

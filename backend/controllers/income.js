@@ -6,6 +6,7 @@ exports.addIncome= async (req,res)=>{
     const income=incomeSchema({
         title,
         amount,
+        type:'income',
         category,
         description,
         date

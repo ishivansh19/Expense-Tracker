@@ -4,6 +4,7 @@ import { useGlobalContext } from '../../context/globalContext';
 import { InnerLayout } from '../../styles/Layouts';
 import IncomeItem from '../IncomeItem/IncomeItem';
 import ExpenseForm from './ExpenseForm';
+import { inr } from '../../utils/Icons';
 
 function Expenses() {
     const {addExpense,expenses, getExpenses, deleteExpense, totalExpenses} = useGlobalContext()
@@ -15,7 +16,7 @@ function Expenses() {
         <ExpenseStyled>
             <InnerLayout>
                 <h1>Expenses</h1>
-                <h2 className="total-expense">Total Expense: <span>${totalExpenses()}</span></h2>
+                <h2 className="total-expense">Total Expense: <span>{inr}{totalExpenses()}</span></h2>
                 <div className="expense-content">
                     <div className="form-container">
                         <ExpenseForm />

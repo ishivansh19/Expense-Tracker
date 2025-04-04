@@ -44,23 +44,15 @@ function Dashboard() {
                     </div>
                     <div className="history-con">
                         <History />
-                        <h2 className="salary-title">Min <span>Salary</span>Max</h2>
+                        <h2 className="salary-title">Min <span>Salary</span> Max</h2>
                         <div className="salary-item">
-                            <p>
-                                {inr}{Math.min(...incomes.map(item => item.amount))}
-                            </p>
-                            <p>
-                            {inr}{Math.max(...incomes.map(item => item.amount))}
-                            </p>
+                            <p>{inr}{Math.max(0, Math.min(...incomes.map(item => item.amount)))}</p>
+                            <p>{inr}{Math.max(...incomes.map(item => item.amount))}</p>
                         </div>
-                        <h2 className="salary-title">Min <span>Expense</span>Max</h2>
+                        <h2 className="salary-title">Min <span>Expense</span> Max</h2>
                         <div className="salary-item">
-                            <p>
-                            {inr}{Math.min(...expenses.map(item => item.amount))}
-                            </p>
-                            <p>
-                            {inr}{Math.max(...expenses.map(item => item.amount))}
-                            </p>
+                            <p>{inr}{Math.max(0, Math.min(...expenses.map(item => item.amount)))}</p>
+                            <p>{inr}{Math.max(...expenses.map(item => item.amount))}</p>
                         </div>
                     </div>
                 </div>
@@ -102,6 +94,10 @@ const DashboardStyled = styled.div`
                         overflow: hidden;
                         text-overflow: ellipsis;
                     }
+                }
+                    .income:hover, .expense:hover, .balance:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
                 }
 
                 .balance{
